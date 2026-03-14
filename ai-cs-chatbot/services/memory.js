@@ -1,33 +1,33 @@
-const memoryStore = {};
+const memory = {};
 
 export function getMemory(userId) {
 
-  if (!memoryStore[userId]) {
-    memoryStore[userId] = [];
+  if (!memory[userId]) {
+    memory[userId] = [];
   }
 
-  return memoryStore[userId];
+  return memory[userId];
 
 }
 
 export function saveMemory(userId, message, reply) {
 
-  if (!memoryStore[userId]) {
-    memoryStore[userId] = [];
+  if (!memory[userId]) {
+    memory[userId] = [];
   }
 
-  memoryStore[userId].push({
+  memory[userId].push({
     role: "user",
     content: message
   });
 
-  memoryStore[userId].push({
+  memory[userId].push({
     role: "assistant",
     content: reply
   });
 
-  // batasi memory max 10 chat
-  if (memoryStore[userId].length > 20) {
-    memoryStore[userId] = memoryStore[userId].slice(-20);
+  if (memory[userId].length > 20) {
+    memory[userId] = memory[userId].slice(-20);
   }
+
 }

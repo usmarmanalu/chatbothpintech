@@ -11,25 +11,36 @@ export async function askAI(message, history = []) {
 
     let context = "";
 
+    // =========================
+    // AMBIL DATA GOOGLE SHEET
+    // =========================
     try {
 
-      const sheets = await getSheetsData();
+      const sheetsData = await getSheetsData();
 
-      context = sheets.map(sheet => {
+      if (Array.isArray(sheetsData)) {
 
-        const rows = sheet.rows
-          .map(r => Object.values(r).join(" | "))
-          .join("\n");
+        context = sheetsData.map(sheet => {
 
-        return `Sheet: ${sheet.name}\n${rows}`;
+          const rows = (sheet.rows || [])
+            .map(row => Object.values(row).join(" | "))
+            .join("\n");
 
-      }).join("\n\n");
+          return `Sheet: ${sheet.name}\n${rows}`;
 
-    } catch (e) {
+        }).join("\n\n");
 
-      console.log("Sheet tidak terbaca:", e.message);
+      }
+
+    } catch (sheetError) {
+
+      console.log("Sheet error (diabaikan):", sheetError.message);
 
     }
+
+    // =========================
+    // PANGGIL OPENAI
+    // =========================
 
     const completion = await openai.chat.completions.create({
 
@@ -40,16 +51,13 @@ export async function askAI(message, history = []) {
         {
           role: "system",
           content: `
-Anda adalah customer service perusahaan cleaning service Pintech.
+Anda adalah customer service cleaning service Pintech.
 
-Gunakan data berikut jika diperlukan:
+Gunakan data berikut jika ada:
 
 ${context}
 
-Aturan:
-- jawab ramah
-- jawab singkat
-- jika data tidak ada, beri tahu dengan sopan
+Jawab dengan ramah dan singkat.
 `
         },
 
@@ -64,11 +72,13 @@ Aturan:
 
     });
 
-    return completion.choices[0].message.content;
+    const reply = completion?.choices?.[0]?.message?.content;
+
+    return reply || "Maaf saya belum bisa menjawab.";
 
   } catch (error) {
 
-    console.error("AI ERROR:", error);
+    console.error("OPENAI ERROR FULL:", error);
 
     return "Maaf sistem sedang mengalami gangguan.";
 
