@@ -1,15 +1,12 @@
 {
   "name": "ai-cs-chatbot",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "AI Customer Service Chatbot Backend",
+  "private": true,
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "node server.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
   "dependencies": {
     "dotenv": "^17.3.1",
     "googleapis": "^171.4.0",
