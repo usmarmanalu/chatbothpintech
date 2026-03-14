@@ -1,69 +1,46 @@
-import { google } from "googleapis";
+import { GoogleSpreadsheet } from "google-spreadsheet";
+import { JWT } from "google-auth-library";
 
 export async function getSheetsData() {
 
-  const auth = new google.auth.GoogleAuth({
+  try {
 
-    credentials: JSON.parse(process.env.GOOGLE_SERVICE_KEY),
-
-    scopes: ["https://www.googleapis.com/auth/spreadsheets.readonly"]
-
-  });
-
-  const sheets = google.sheets({
-    version: "v4",
-    auth
-  });
-
-  const spreadsheetId = process.env.SHEET_ID;
-
-  // ambil metadata sheet
-  const meta = await sheets.spreadsheets.get({
-    spreadsheetId
-  });
-
-  const sheetTitles = meta.data.sheets.map(s => s.properties.title);
-
-  const results = [];
-
-  for (const title of sheetTitles) {
-
-    const response = await sheets.spreadsheets.values.get({
-
-      spreadsheetId,
-
-      range: title
-
+    const serviceAccountAuth = new JWT({
+      email: process.env.GOOGLE_SERVICE_EMAIL,
+      key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, "\n"),
+      scopes: ["https://www.googleapis.com/auth/spreadsheets.readonly"],
     });
 
-    const rows = response.data.values;
+    const doc = new GoogleSpreadsheet(
+      process.env.GOOGLE_SHEET_ID,
+      serviceAccountAuth
+    );
 
-    if (!rows || rows.length === 0) continue;
+    await doc.loadInfo();
 
-    const headers = rows[0];
+    const sheetsData = [];
 
-    const data = rows.slice(1).map(row => {
+    for (const sheet of doc.sheetsByIndex) {
 
-      const obj = {};
+      const rows = await sheet.getRows();
 
-      headers.forEach((h, i) => {
-        obj[h] = row[i] || "";
+      const formattedRows = rows.map(r => r.toObject());
+
+      sheetsData.push({
+        name: sheet.title,
+        rows: formattedRows
       });
 
-      return obj;
+    }
 
-    });
+    return sheetsData;
 
-    results.push({
+  } catch (error) {
 
-      name: title,
+    console.error("SHEET ERROR:", error);
 
-      rows: data
-
-    });
+    return [];
 
   }
-
-  return results;
 
 }

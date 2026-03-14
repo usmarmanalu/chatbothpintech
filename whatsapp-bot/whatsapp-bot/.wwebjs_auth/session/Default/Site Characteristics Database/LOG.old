@@ -1,3 +1,2 @@
-2026/03/15-00:16:30.719 5fc Reusing MANIFEST C:\ai-cs-chatbot\whatsapp-bot\whatsapp-bot\.wwebjs_auth\session\Default\Site Characteristics Database/MANIFEST-000001
-2026/03/15-00:16:30.755 5fc Recovering log #3
-2026/03/15-00:16:30.756 5fc Reusing old log C:\ai-cs-chatbot\whatsapp-bot\whatsapp-bot\.wwebjs_auth\session\Default\Site Characteristics Database/000003.log 
+2026/03/15-01:07:22.485 3d10 Creating DB C:\ai-cs-chatbot\whatsapp-bot\whatsapp-bot\.wwebjs_auth\session\Default\Site Characteristics Database since it was missing.
+2026/03/15-01:07:22.660 3d10 Reusing MANIFEST C:\ai-cs-chatbot\whatsapp-bot\whatsapp-bot\.wwebjs_auth\session\Default\Site Characteristics Database/MANIFEST-000001

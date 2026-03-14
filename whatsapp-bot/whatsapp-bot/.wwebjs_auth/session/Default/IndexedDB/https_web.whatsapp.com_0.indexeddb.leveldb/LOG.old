@@ -1,12 +1,14 @@
-2026/03/15-00:16:34.037 1728 Reusing MANIFEST C:\ai-cs-chatbot\whatsapp-bot\whatsapp-bot\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
-2026/03/15-00:16:34.038 1728 Recovering log #27
-2026/03/15-00:16:34.063 1728 Reusing old log C:\ai-cs-chatbot\whatsapp-bot\whatsapp-bot\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000027.log 
-2026/03/15-00:17:26.423 4b0c Level-0 table #32: started
-2026/03/15-00:17:27.488 4b0c Level-0 table #32: 1294896 bytes OK
-2026/03/15-00:17:27.622 4b0c Delete type=0 #27
-2026/03/15-00:17:44.434 4b0c Compacting 1@1 + 1@2 files
-2026/03/15-00:17:44.916 4b0c Generated table #33@1: 21728 keys, 988012 bytes
-2026/03/15-00:17:44.916 4b0c Compacted 1@1 + 1@2 files => 988012 bytes
-2026/03/15-00:17:44.922 4b0c compacted to: files[ 0 0 1 0 0 0 0 ]
-2026/03/15-00:17:44.923 4b0c Delete type=2 #29
-2026/03/15-00:17:44.924 4b0c Delete type=2 #32
+2026/03/15-01:07:44.978 4b2c Creating DB C:\ai-cs-chatbot\whatsapp-bot\whatsapp-bot\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb since it was missing.
+2026/03/15-01:07:45.409 4b2c Reusing MANIFEST C:\ai-cs-chatbot\whatsapp-bot\whatsapp-bot\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/03/15-01:08:27.125 408 Level-0 table #5: started
+2026/03/15-01:08:27.232 408 Level-0 table #5: 998416 bytes OK
+2026/03/15-01:08:27.244 408 Delete type=0 #3
+2026/03/15-01:09:19.119 4b2c Level-0 table #7: started
+2026/03/15-01:09:19.319 4b2c Level-0 table #7: 1048662 bytes OK
+2026/03/15-01:09:19.334 4b2c Delete type=0 #4
+2026/03/15-01:10:01.715 408 Compacting 1@1 + 1@2 files
+2026/03/15-01:10:02.348 408 Generated table #8@1: 19324 keys, 780273 bytes
+2026/03/15-01:10:02.348 408 Compacted 1@1 + 1@2 files => 780273 bytes
+2026/03/15-01:10:02.644 408 compacted to: files[ 0 0 1 0 0 0 0 ]
+2026/03/15-01:10:02.645 408 Delete type=2 #5
+2026/03/15-01:10:02.645 408 Delete type=2 #7

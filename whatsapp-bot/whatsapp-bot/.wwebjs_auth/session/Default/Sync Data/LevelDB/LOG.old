@@ -1,3 +1,2 @@
-2026/03/15-00:16:30.715 335c Reusing MANIFEST C:\ai-cs-chatbot\whatsapp-bot\whatsapp-bot\.wwebjs_auth\session\Default\Sync Data\LevelDB/MANIFEST-000001
-2026/03/15-00:16:30.722 335c Recovering log #3
-2026/03/15-00:16:30.722 335c Reusing old log C:\ai-cs-chatbot\whatsapp-bot\whatsapp-bot\.wwebjs_auth\session\Default\Sync Data\LevelDB/000003.log 
+2026/03/15-01:07:22.480 29ac Creating DB C:\ai-cs-chatbot\whatsapp-bot\whatsapp-bot\.wwebjs_auth\session\Default\Sync Data\LevelDB since it was missing.
+2026/03/15-01:07:22.714 29ac Reusing MANIFEST C:\ai-cs-chatbot\whatsapp-bot\whatsapp-bot\.wwebjs_auth\session\Default\Sync Data\LevelDB/MANIFEST-000001

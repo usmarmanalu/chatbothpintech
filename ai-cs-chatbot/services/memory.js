@@ -1,32 +1,33 @@
-import fs from "fs";
-import path from "path";
+const memoryStore = {};
 
-const filePath = path.resolve("./data/memory.json");
+export function getMemory(userId) {
 
-export function getHistory(userId) {
-
-
-    const dataa = JSON.parse(fs.readFileSync(filePath));
-    if(!dataa[userId]){
-        return[]
-    }
-
-    return dataa[userId];
-}
-
-export function saveMessage(userId, role, message) {
-
-  const data = JSON.parse(fs.readFileSync(filePath));
-
-  if (!data[userId]) {
-    data[userId] = [];
+  if (!memoryStore[userId]) {
+    memoryStore[userId] = [];
   }
 
-  data[userId].push({
-    role,
+  return memoryStore[userId];
+
+}
+
+export function saveMemory(userId, message, reply) {
+
+  if (!memoryStore[userId]) {
+    memoryStore[userId] = [];
+  }
+
+  memoryStore[userId].push({
+    role: "user",
     content: message
   });
 
-  fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
-}
+  memoryStore[userId].push({
+    role: "assistant",
+    content: reply
+  });
 
+  // batasi memory max 10 chat
+  if (memoryStore[userId].length > 20) {
+    memoryStore[userId] = memoryStore[userId].slice(-20);
+  }
+}

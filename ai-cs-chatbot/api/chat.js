@@ -1,16 +1,15 @@
 import { askAI } from "../services/ai.js";
+import { getMemory, saveMemory } from "../services/memory.js";
 
 export default async function handler(req, res) {
 
-  // TEST API VIA BROWSER
   if (req.method === "GET") {
     return res.status(200).json({
       status: "Chatbot API aktif",
-      message: "Gunakan POST untuk mengirim chat"
+      message: "Gunakan POST untuk chat"
     });
   }
 
-  // hanya menerima POST
   if (req.method !== "POST") {
     return res.status(405).json({
       error: "Method Not Allowed"
@@ -19,7 +18,7 @@ export default async function handler(req, res) {
 
   try {
 
-    const { userId, message, history } = req.body;
+    const { userId = "guest", message } = req.body;
 
     if (!message) {
       return res.status(400).json({
@@ -27,7 +26,13 @@ export default async function handler(req, res) {
       });
     }
 
-    const reply = await askAI(message, history || []);
+    // ambil history user
+    const history = getMemory(userId);
+
+    const reply = await askAI(message, history);
+
+    // simpan memory
+    saveMemory(userId, message, reply);
 
     return res.status(200).json({
       userId,
@@ -37,11 +42,12 @@ export default async function handler(req, res) {
 
   } catch (error) {
 
-    console.error("CHAT API ERROR:", error);
+    console.error("CHAT ERROR:", error);
 
     return res.status(500).json({
       error: "Internal Server Error"
     });
 
   }
+
 }

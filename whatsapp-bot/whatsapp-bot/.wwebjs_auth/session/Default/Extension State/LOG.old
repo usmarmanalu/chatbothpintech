@@ -1,3 +1,2 @@
-2026/03/15-00:16:31.397 1728 Reusing MANIFEST C:\ai-cs-chatbot\whatsapp-bot\whatsapp-bot\.wwebjs_auth\session\Default\Extension State/MANIFEST-000001
-2026/03/15-00:16:31.397 1728 Recovering log #3
-2026/03/15-00:16:31.398 1728 Reusing old log C:\ai-cs-chatbot\whatsapp-bot\whatsapp-bot\.wwebjs_auth\session\Default\Extension State/000003.log 
+2026/03/15-01:07:23.001 1808 Creating DB C:\ai-cs-chatbot\whatsapp-bot\whatsapp-bot\.wwebjs_auth\session\Default\Extension State since it was missing.
+2026/03/15-01:07:23.051 1808 Reusing MANIFEST C:\ai-cs-chatbot\whatsapp-bot\whatsapp-bot\.wwebjs_auth\session\Default\Extension State/MANIFEST-000001
