@@ -2,70 +2,51 @@ const { Client, LocalAuth } = require("whatsapp-web.js");
 const qrcode = require("qrcode-terminal");
 const axios = require("axios");
 
-// inisialisasi client
 const client = new Client({
   authStrategy: new LocalAuth(),
   puppeteer: {
     headless: false,
-    args: ["--no-sandbox", "--disable-setuid-sandbox"]
+    args: ["--no-sandbox"]
   }
 });
 
-// QR Code
 client.on("qr", (qr) => {
-  console.log("Scan QR ini dengan WhatsApp kamu:");
+  console.log("Scan QR:");
   qrcode.generate(qr, { small: true });
 });
 
-// Bot siap
 client.on("ready", () => {
-  console.log("✅ WhatsApp bot siap digunakan");
+  console.log("✅ WhatsApp bot siap");
 });
 
-// Jika login berhasil
-client.on("authenticated", () => {
-  console.log("🔐 Authenticated");
-});
-
-// Jika session tersimpan
-client.on("auth_failure", (msg) => {
-  console.error("❌ Auth failure:", msg);
-});
-
-// menerima pesan
 client.on("message", async (msg) => {
   try {
-    // ignore status
-    if (msg.from === "status@broadcast") return;
 
-    // ignore group
+    if (msg.from === "status@broadcast") return;
     if (msg.from.includes("@g.us")) return;
 
-    const userId = msg.from;
     const text = msg.body;
 
-    console.log("📩 Pesan masuk:", text);
+    console.log("📩 Pesan:", text);
 
     const res = await axios.post(
       "https://chatbothpintech.vercel.app/api/chat",
       {
-        userId: userId,
+        userId: msg.from,
         message: text
       }
     );
 
-    const reply = res.data.reply || "Maaf saya tidak mengerti pertanyaan Anda.";
+    const reply = res.data.reply || "Maaf saya tidak mengerti.";
 
     await msg.reply(reply);
 
-    console.log("🤖 Reply:", reply);
-
   } catch (error) {
-    console.error("ERROR:", error.message);
 
-    msg.reply("Maaf sistem sedang sibuk. Silakan coba lagi nanti, okkee.");
+    console.log("ERROR:", error.response?.data || error.message);
+
+    msg.reply("Maaf sistem sedang sibuk.");
   }
 });
 
-// mulai bot
 client.initialize();
