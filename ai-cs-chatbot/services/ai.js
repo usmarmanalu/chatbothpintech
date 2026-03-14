@@ -1,45 +1,69 @@
 import OpenAI from "openai";
-import { getServices } from "./sheet.js";
+import { getSheetsData } from "./sheet.js";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
 });
 
-export async function askAI(message, history) {
+export async function askAI(message, history = []) {
 
-  const services = await getServices();
+  try {
 
-  const serviceList = services
-    .map(s => `${s[0]} : Rp ${s[1]}`)
-    .join("\n");
+    const sheetsData = await getSheetsData();
 
-  const completion = await openai.chat.completions.create({
+    // ubah semua sheet menjadi text knowledge
+    const context = sheetsData
+      .map(sheet => {
 
-    model: "gpt-4o-mini",
+        const rows = sheet.rows
+          .map(r => Object.values(r).join(" | "))
+          .join("\n");
 
-    messages: [
+        return `Sheet: ${sheet.name}\n${rows}`;
 
-      {
-        role: "system",
-        content:
-`Anda adalah customer service perusahaan cleaning service.
+      })
+      .join("\n\n");
 
-Daftar layanan:
+    const completion = await openai.chat.completions.create({
 
-${serviceList}
+      model: "gpt-4o-mini",
 
-Jika pelanggan bertanya harga layanan, jawab dari daftar tersebut.
-Jawab dengan ramah.`
-      },
+      messages: [
 
-      ...history,
+        {
+          role: "system",
+          content: `
+Anda adalah customer service perusahaan cleaning service.
 
-      {
-        role: "user",
-        content: message
-      }
-    ]
-  });
+Gunakan data berikut untuk menjawab pelanggan:
 
-  return completion.choices[0].message.content;
+${context}
+
+Jika pelanggan bertanya harga atau layanan,
+jawab berdasarkan data spreadsheet di atas.
+Jawab dengan ramah dan singkat.
+`
+        },
+
+        ...history,
+
+        {
+          role: "user",
+          content: message
+        }
+
+      ]
+
+    });
+
+    return completion.choices?.[0]?.message?.content || "Maaf saya tidak mengerti.";
+
+  } catch (error) {
+
+    console.error("AI ERROR:", error);
+
+    return "Maaf sistem sedang mengalami gangguan.";
+
+  }
+
 }
