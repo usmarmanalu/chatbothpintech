@@ -1,12 +1,3 @@
-2026/03/15-00:16:34.037 1728 Reusing MANIFEST C:\ai-cs-chatbot\whatsapp-bot\whatsapp-bot\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
-2026/03/15-00:16:34.038 1728 Recovering log #27
-2026/03/15-00:16:34.063 1728 Reusing old log C:\ai-cs-chatbot\whatsapp-bot\whatsapp-bot\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000027.log 
-2026/03/15-00:17:26.423 4b0c Level-0 table #32: started
-2026/03/15-00:17:27.488 4b0c Level-0 table #32: 1294896 bytes OK
-2026/03/15-00:17:27.622 4b0c Delete type=0 #27
-2026/03/15-00:17:44.434 4b0c Compacting 1@1 + 1@2 files
-2026/03/15-00:17:44.916 4b0c Generated table #33@1: 21728 keys, 988012 bytes
-2026/03/15-00:17:44.916 4b0c Compacted 1@1 + 1@2 files => 988012 bytes
-2026/03/15-00:17:44.922 4b0c compacted to: files[ 0 0 1 0 0 0 0 ]
-2026/03/15-00:17:44.923 4b0c Delete type=2 #29
-2026/03/15-00:17:44.924 4b0c Delete type=2 #32
+2026/03/15-00:53:51.914 1544 Reusing MANIFEST C:\ai-cs-chatbot\whatsapp-bot\whatsapp-bot\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/03/15-00:53:51.915 1544 Recovering log #31
+2026/03/15-00:53:51.976 1544 Reusing old log C:\ai-cs-chatbot\whatsapp-bot\whatsapp-bot\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000031.log 

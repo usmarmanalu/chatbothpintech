@@ -9,13 +9,18 @@ export async function askAI(message, history = []) {
 
   try {
 
-    const sheetsData = await getSheetsData();
+    let sheetsData = [];
 
-    // ubah semua sheet menjadi text knowledge
-    const context = sheetsData
+    try {
+      sheetsData = await getSheetsData();
+    } catch (e) {
+      console.log("Sheet tidak terbaca, lanjut tanpa data");
+    }
+
+    const context = (sheetsData || [])
       .map(sheet => {
 
-        const rows = sheet.rows
+        const rows = (sheet.rows || [])
           .map(row => Object.values(row).join(" | "))
           .join("\n");
 
@@ -29,21 +34,16 @@ export async function askAI(message, history = []) {
       model: "gpt-4o-mini",
 
       messages: [
-
         {
           role: "system",
           content: `
 Anda adalah customer service perusahaan cleaning service Pintech.
 
-Gunakan data berikut untuk menjawab pelanggan:
+Gunakan data berikut jika tersedia:
 
 ${context}
 
-Aturan menjawab:
-- Jawab ramah seperti customer service
-- Jika ditanya harga atau layanan, gunakan data spreadsheet
-- Jika data tidak ada, katakan dengan sopan bahwa informasi belum tersedia
-- Jawab singkat dan jelas
+Jawab ramah seperti customer service.
 `
         },
 
@@ -53,7 +53,6 @@ Aturan menjawab:
           role: "user",
           content: message
         }
-
       ]
 
     });
