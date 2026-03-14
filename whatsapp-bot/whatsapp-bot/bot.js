@@ -63,7 +63,7 @@ client.on("message", async (msg) => {
   } catch (error) {
     console.error("ERROR:", error.message);
 
-    msg.reply("Maaf sistem sedang sibuk. Silakan coba lagi nanti.");
+    msg.reply("Maaf sistem sedang sibuk. Silakan coba lagi nanti, okkee.");
   }
 });
 
